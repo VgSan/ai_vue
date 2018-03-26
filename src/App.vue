@@ -1,26 +1,38 @@
 <template>
   <div id="app">
     <app-header />
-    <router-view></router-view>
+    <div v-if="auth" style="display: inline-flex;">
+      <div style="background-color: #f4f4f4;"><app-navigation /></div>
+      <div><router-view></router-view></div>
+    </div>
+    <div v-if="!auth" ><router-view></router-view></div>
   </div>
 </template>
 
 <script>
-  import Header from './components/header/header.vue'
-  export default {
-    name: 'app',
-    components: {
-      'app-header': Header
-    },
-    created () {
-      this.$store.dispatch('tryAutoLogin')
+import Header from "./components/header/header.vue";
+import Navigation from "./components/header/navigation.vue";
+export default {
+  name: "app",
+  components: {
+    "app-header": Header,
+    "app-navigation": Navigation
+  },
+  computed: {
+    auth() {
+      return this.$store.getters.isAuthenticated;
     }
+  },
+  created() {
+    this.$store.dispatch("tryAutoLogin");
   }
+};
 </script>
 
 <style>
-  body, html {
-    margin: 0;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
+body,
+html {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 </style>

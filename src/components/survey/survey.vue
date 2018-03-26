@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard" style="height: 800px; padding-left: 30px;">
-    <h1>Dashboard!</h1>
+    <h1>Survey!</h1>
     <!-- <p>You should only get here if you're authenticated!</p> -->
     <p v-if="email">Your email address: {{ email }}</p>
   </div>
