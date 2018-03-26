@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 import store from './store'
 
-import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import DashboardPage from './components/dashboard/dashboard.vue'
 import ServicePage from './components/service/service.vue'
@@ -12,7 +11,6 @@ import SurveyPage from './components/survey/survey.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/signup', component: SignupPage },
   { path: '/signin', component: SigninPage },
   {
     path: '/', component: DashboardPage,

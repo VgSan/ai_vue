@@ -1,8 +1,6 @@
 <template>
-  <div id="dashboard" style="height: 800px; padding-left: 30px;">
+  <div id="service" style="height: 800px; padding-left: 30px;">
     <h1>Service!</h1>
-    <!-- <p>You should only get here if you're authenticated!</p> -->
-    <p v-if="email">Your email address: {{ email }}</p>
   </div>
 </template>
 
@@ -11,12 +9,10 @@
 
   export default {
     computed: {
-      email () {
-        return !this.$store.getters.user ? false : this.$store.getters.user.email
-      }
+      
     },
     created () {
-      this.$store.dispatch('fetchUser')
+      
     }
   }
 </script>

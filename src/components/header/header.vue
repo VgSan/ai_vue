@@ -7,15 +7,6 @@
     </div>
     <nav>
       <ul>
-        <!-- <li v-if="!auth">
-          <router-link to="/signup">Sign Up</router-link>
-        </li> -->
-        <!-- <li v-if="!auth">
-          <router-link to="/signin">Sign In</router-link>
-        </li> -->
-        <!-- <li v-if="auth">
-          <router-link to="/dashboard">Dashboard</router-link>
-        </li> -->
         <li v-if="auth">
           <button @click="onLogout" class="logout"><i class="fa fa-sign-out-alt"></i>&nbsp; Logout</button>
         </li>
