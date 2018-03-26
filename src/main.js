@@ -1,24 +1,25 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
-
 import App from './App.vue'
-import { routes } from './routes';
-import store from './store/store';
+import axios from 'axios'
 
-Vue.use(VueRouter);
-Vue.use(VueResource);
+import router from './router'
+import store from './store'
 
-Vue.http.options.root = 'https://vuejs-stock-trader-330c6.firebaseio.com/';
+axios.defaults.baseURL = 'https://vue-update.firebaseio.com'
+// axios.defaults.headers.common['Authorization'] = 'fasfdsa'
+axios.defaults.headers.get['Accepts'] = 'application/json'
 
-Vue.filter('currency', (value) => {
-  return '$' + value.toLocaleString();
-});
+const reqInterceptor = axios.interceptors.request.use(config => {
+  console.log('Request Interceptor', config)
+  return config
+})
+const resInterceptor = axios.interceptors.response.use(res => {
+  console.log('Response Interceptor', res)
+  return res
+})
 
-const router = new VueRouter({
-  mode: 'history',
-  routes
-});
+axios.interceptors.request.eject(reqInterceptor)
+axios.interceptors.response.eject(resInterceptor)
 
 new Vue({
   el: '#app',
