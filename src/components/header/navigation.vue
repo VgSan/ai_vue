@@ -19,6 +19,12 @@
             <span class="side_menu_label">Survey</span>
           </router-link>
         </li>
+        <li v-if="auth">
+          <router-link to="/employee">
+            <i class="fa fa-book"></i>&nbsp;
+            <span class="side_menu_label">Employee</span>
+          </router-link>
+        </li>
       </ul>
     </nav>
 </template>

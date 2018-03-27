@@ -43,11 +43,11 @@ export default new Vuex.Store({
           const now = new Date()
           const expirationDate = new Date(now.getTime() + res.data.expires_in * 1000)
           localStorage.setItem('token', res.data.access_token)
-          localStorage.setItem('userId', authData.email)
+          localStorage.setItem('userId', res.data.userId)
           localStorage.setItem('expirationDate', expirationDate)
           commit('authUser', {
             token: res.data.access_token,
-            userId: authData.email
+            userId: res.data.userId
           })
           dispatch('setLogoutTimer', res.data.expires_in)
           router.replace('/dashboard')

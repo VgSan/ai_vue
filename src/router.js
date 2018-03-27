@@ -7,6 +7,8 @@ import SigninPage from './components/auth/signin.vue'
 import DashboardPage from './components/dashboard/dashboard.vue'
 import ServicePage from './components/service/service.vue'
 import SurveyPage from './components/survey/survey.vue'
+import EmployeePage from './components/employee/employee.vue'
+import AddEmployeePage from './components/employee/add-employee.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +52,30 @@ const routes = [
   {
     path: '/survey',
     component: SurveyPage,
+    beforeEnter(to, from, next) {
+      store.dispatch('tryAutoLogin')
+      if (store.state.idToken) {
+        next()
+      } else {
+        next('/signin')
+      }
+    }
+  },
+  {
+    path: '/employee',
+    component: EmployeePage,
+    beforeEnter(to, from, next) {
+      store.dispatch('tryAutoLogin')
+      if (store.state.idToken) {
+        next()
+      } else {
+        next('/signin')
+      }
+    }
+  },
+  {
+    path: '/employee/new',
+    component: AddEmployeePage,
     beforeEnter(to, from, next) {
       store.dispatch('tryAutoLogin')
       if (store.state.idToken) {
