@@ -3,7 +3,7 @@
       <ul>
         <li v-if="auth">
           <router-link to="/dashboard">
-            <i class="fa fa-tachometer-alt"></i>&nbsp;
+            <i class="fa fa-tachometer"></i>&nbsp;
             <span class="side_menu_label">Dashboard</span>
           </router-link>
         </li>
@@ -21,7 +21,7 @@
         </li>
         <li v-if="auth">
           <router-link to="/employee">
-            <i class="fa fa-book"></i>&nbsp;
+            <i class="fa fa-users"></i>&nbsp;
             <span class="side_menu_label">Employee</span>
           </router-link>
         </li>
@@ -70,7 +70,7 @@ li a.router-link-active {
 }
 
 .side_menu {
-  width: 220px;
+  width: 15vw;
   left: 0;
   top: 0;
   bottom: 0;

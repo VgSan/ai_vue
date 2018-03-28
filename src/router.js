@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Datatable from 'vue2-datatable-component'
 
 import store from './store'
 
@@ -11,6 +12,7 @@ import EmployeePage from './components/employee/employee.vue'
 import AddEmployeePage from './components/employee/add-employee.vue'
 
 Vue.use(VueRouter)
+Vue.use(Datatable)
 
 const routes = [
   { path: '/signin', component: SigninPage },

@@ -19,17 +19,35 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'babel-loader',
+      //   exclude: /node_modules/
+      // },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets:[ 'es2015', 'stage-2' ]
+        }
+      },
+
+      {
+        test: /\.js$/,
+        loader: 'babel-loader?cacheDirectory',
+        include: [
+            /src/,
+          /vue2\-datatable\-component/
+        ]
       }
     ]
   },

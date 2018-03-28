@@ -8,7 +8,7 @@
     <nav>
       <ul>
         <li v-if="auth">
-          <button @click="onLogout" class="logout"><i class="fa fa-sign-out-alt"></i>&nbsp; Logout</button>
+          <button @click="onLogout" class="logout"><i class="fa fa-sign-out"></i>&nbsp; Logout</button>
         </li>
       </ul>
     </nav>

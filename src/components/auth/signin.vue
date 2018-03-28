@@ -16,8 +16,8 @@
                   id="password"
                   v-model="password">
         </div>
-        <div class="submit">
-          <button type="submit">Submit</button>
+        <div>
+          <button class="btn" type="submit">Submit</button>
         </div>
       </form>
     </div>
@@ -79,31 +79,5 @@ export default {
   outline: none;
   border: 1px solid #ed9f04;
   background-color: #eee;
-}
-
-.submit button {
-  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
-  border-radius: 5px;
-  font-family: Arial;
-  color: #ffffff;
-  background: #ff9900;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-}
-
-.submit button:hover,
-.submit button:active {
-  background: #ff6600;
-  text-decoration: none;
-}
-
-.submit button[disabled],
-.submit button[disabled]:hover,
-.submit button[disabled]:active {
-  border: 1px solid #ccc;
-  background-color: transparent;
-  color: #ccc;
-  cursor: not-allowed;
 }
 </style>
