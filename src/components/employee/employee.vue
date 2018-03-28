@@ -11,7 +11,7 @@
         </button>
     </div>
     <div>
-      <code>query: {{ query }}</code>
+      <!-- <code>query: {{ query }}</code> -->
       <div>
         <datatable v-bind="$data" />
       </div>
