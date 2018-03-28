@@ -19,11 +19,6 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-      // {
-      //   test: /\.js$/,
-      //   loader: 'babel-loader',
-      //   exclude: /node_modules/
-      // },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
@@ -31,21 +26,19 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       },
-      
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets:[ 'es2015', 'stage-2' ]
+          presets: ['es2015', 'stage-2']
         }
       },
-
       {
         test: /\.js$/,
         loader: 'babel-loader?cacheDirectory',
         include: [
-            /src/,
+          /src/,
           /vue2\-datatable\-component/
         ]
       }
@@ -85,6 +78,10 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
     })
   ])
 }
