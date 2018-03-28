@@ -11,7 +11,7 @@
         </button>
     </div>
     <div>
-      <!-- <code>query: {{ query }}</code> -->
+      <code>query: {{ query }}</code>
       <div>
         <datatable v-bind="$data" />
       </div>
@@ -34,6 +34,10 @@ export default {
     },
     reloadUsersBtn() {
       //reloadUsers();
+      mockData(this.query).then(({ rows, total }) => {
+        this.data = rows;
+        this.total = total;
+      });
     }
   },
 
