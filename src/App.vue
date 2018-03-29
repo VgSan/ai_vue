@@ -20,11 +20,11 @@ export default {
   },
   computed: {
     auth() {
-      return this.$store.getters.isAuthenticated;
+      return this.$store.getters["auth/isAuthenticated"];
     }
   },
   created() {
-    this.$store.dispatch("tryAutoLogin");
+    this.$store.dispatch("auth/tryAutoLogin");
   }
 };
 </script>

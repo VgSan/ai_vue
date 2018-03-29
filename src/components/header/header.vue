@@ -19,12 +19,12 @@
 export default {
   computed: {
     auth() {
-      return this.$store.getters.isAuthenticated;
+      return this.$store.getters['auth/isAuthenticated'];
     }
   },
   methods: {
     onLogout() {
-      this.$store.dispatch("logout");
+      this.$store.dispatch("auth/logout");
     }
   }
 };

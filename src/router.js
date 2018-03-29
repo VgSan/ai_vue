@@ -19,8 +19,8 @@ const routes = [
   {
     path: '/', component: DashboardPage,
     beforeEnter(to, from, next) {
-      store.dispatch('tryAutoLogin')
-      if (store.state.idToken) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
         next()
       } else {
         next('/signin')
@@ -31,8 +31,8 @@ const routes = [
     path: '/dashboard',
     component: DashboardPage,
     beforeEnter(to, from, next) {
-      store.dispatch('tryAutoLogin')
-      if (store.state.idToken) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
         next()
       } else {
         next('/signin')
@@ -43,8 +43,8 @@ const routes = [
     path: '/service',
     component: ServicePage,
     beforeEnter(to, from, next) {
-      store.dispatch('tryAutoLogin')
-      if (store.state.idToken) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
         next()
       } else {
         next('/signin')
@@ -55,8 +55,8 @@ const routes = [
     path: '/survey',
     component: SurveyPage,
     beforeEnter(to, from, next) {
-      store.dispatch('tryAutoLogin')
-      if (store.state.idToken) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
         next()
       } else {
         next('/signin')
@@ -67,8 +67,8 @@ const routes = [
     path: '/employee',
     component: EmployeePage,
     beforeEnter(to, from, next) {
-      store.dispatch('tryAutoLogin')
-      if (store.state.idToken) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
         next()
       } else {
         next('/signin')
@@ -79,8 +79,8 @@ const routes = [
     path: '/employee/new',
     component: AddEmployeePage,
     beforeEnter(to, from, next) {
-      store.dispatch('tryAutoLogin')
-      if (store.state.idToken) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
         next()
       } else {
         next('/signin')

@@ -3,7 +3,7 @@ import App from './App.vue'
 import axios from 'axios'
 
 import router from './router'
-import store from './store'
+import store from './store/index'
 
 axios.defaults.baseURL = 'http://localhost:54978'
 // axios.defaults.headers.common['Authorization'] = 'fasfdsa'
