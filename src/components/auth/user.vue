@@ -119,10 +119,12 @@ export default {
   },
   computed: {
     users() {
-      userData(this.query, this.$store.state.user.users).then(({ rows, total }) => {
-        this.data = rows;
-        this.total = total;
-      });
+      userData(this.query, this.$store.state.user.users).then(
+        ({ rows, total }) => {
+          this.data = rows;
+          this.total = total;
+        }
+      );
       return true;
     }
   },

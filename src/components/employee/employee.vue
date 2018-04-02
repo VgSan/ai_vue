@@ -1,5 +1,5 @@
 <template>
-  <div id="employee" style="height: 800px; padding-left: 30px; width: 82vw;">
+  <div v-if="employees" id="employee" style="height: 800px; padding-left: 30px; width: 82vw;">
     <div>
         <h1>Employees</h1>
         <button style="position: absolute; right: 27px; top: 90px;" class="btn" @click="addEmployee">
@@ -17,33 +17,89 @@
 </template>
 
 <script>
-import axios from "axios";
 import router from "./../../router";
-import mockData from "./../../_mockData";
+import moment from "moment";
+import uniq from "lodash/uniq";
+import orderBy from "lodash/orderBy";
+
+import without from "lodash/without";
+import camelCase from "lodash/camelCase";
+
+const typeOf = o =>
+  Object.prototype.toString
+    .call(o)
+    .slice(8, -1)
+    .toLowerCase();
+const purify = o => JSON.parse(JSON.stringify(o)); // purify data
+
+var employeeData = function employeeData(query, employees) {
+  query = purify(query);
+  const { limit = 10, offset = 0, sort = "", order = "" } = query;
+
+  let rows = employees;
+
+  // custom query conditions
+  ["id", "email", "password"].forEach(field => {
+    switch (typeOf(query[field])) {
+      case "array":
+        rows = rows.filter(row => query[field].includes(row[field]));
+        break;
+      case "string":
+        rows = rows.filter(row =>
+          row[field].toLowerCase().includes(query[field].toLowerCase())
+        );
+        break;
+      default:
+        // nothing to do
+        break;
+    }
+  });
+
+  if (sort) {
+    rows = orderBy(rows, sort, order);
+  }
+
+  const res = {
+    rows: rows.slice(offset, offset + limit),
+    total: rows.length,
+    summary: {
+      uid: rows.length,
+      age:
+        rows.length &&
+        ~~(
+          rows.map(({ id }) => id).reduce((sum, cur) => sum + cur) / rows.length
+        ), // average age
+      country: uniq(rows.map(({ country }) => country)).length
+    }
+  };
+
+  const consoleGroupName =
+    "Employee data - " + moment().format("YYYY-MM-DD HH:mm:ss");
+  setTimeout(() => {
+    console.group(consoleGroupName);
+    console.info("Receive:", query);
+    console.info("Respond:", res);
+    console.groupEnd(consoleGroupName);
+  }, 0);
+  return Promise.resolve(purify(res));
+};
 
 export default {
-  computed: {},
-  created() {},
   methods: {
     addEmployee() {
       router.replace("/employee/new");
     },
-    reloadUsersBtn() {
-      //reloadUsers();
-      mockData(this.query).then(({ rows, total }) => {
-        this.data = rows;
-        this.total = total;
+    async getpage() {
+      await this.$store.dispatch({
+        type: "employee/getAll"
       });
     }
   },
-
   data: () => ({
     columns: [
-      { title: "User ID", field: "uid", sortable: true },
-      { title: "Username", field: "name" },
-      { title: "Age", field: "age", sortable: true },
-      { title: "Email", field: "email" },
-      { title: "Country", field: "country" }
+      { title: "User ID", field: "id", sortable: true },
+      { title: "Email", field: "email", sortable: true },
+      { title: "Password", field: "password", visible: true }
     ],
     data: [],
     total: 0,
@@ -52,13 +108,29 @@ export default {
   watch: {
     query: {
       handler(query) {
-        mockData(query).then(({ rows, total }) => {
-          this.data = rows;
-          this.total = total;
-        });
+        employeeData(query, this.$store.state.employee.employees).then(
+          ({ rows, total }) => {
+            this.data = rows;
+            this.total = total;
+          }
+        );
       },
       deep: true
     }
+  },
+  computed: {
+    employees() {
+      employeeData(this.query, this.$store.state.employee.employees).then(
+        ({ rows, total }) => {
+          this.data = rows;
+          this.total = total;
+        }
+      );
+      return true;
+    }
+  },
+  async created() {
+    this.getpage();
   }
 };
 </script>
