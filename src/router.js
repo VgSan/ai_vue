@@ -10,6 +10,8 @@ import ServicePage from './components/service/service.vue'
 import SurveyPage from './components/survey/survey.vue'
 import EmployeePage from './components/employee/employee.vue'
 import AddEmployeePage from './components/employee/add-employee.vue'
+import UserPage from './components/auth/user.vue'
+import AddUserPage from './components/auth/add-user.vue'
 
 Vue.use(VueRouter)
 Vue.use(Datatable)
@@ -54,6 +56,30 @@ const routes = [
   {
     path: '/survey',
     component: SurveyPage,
+    beforeEnter(to, from, next) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
+        next()
+      } else {
+        next('/signin')
+      }
+    }
+  },
+  {
+    path: '/user',
+    component: UserPage,
+    beforeEnter(to, from, next) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
+        next()
+      } else {
+        next('/signin')
+      }
+    }
+  },
+  {
+    path: '/user/new',
+    component: AddUserPage,
     beforeEnter(to, from, next) {
       store.dispatch('auth/tryAutoLogin')
       if (store.state.auth.idToken) {

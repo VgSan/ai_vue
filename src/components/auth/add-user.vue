@@ -1,6 +1,6 @@
 <template>
-  <div id="addemployee" style="height: 800px; padding-left: 30px;">
-    <h1>New Employee</h1>
+  <div id="adduser" style="height: 800px; padding-left: 30px;">
+    <h1>New User</h1>
   </div>
 </template>
 

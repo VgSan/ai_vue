@@ -25,6 +25,12 @@
             <span class="side_menu_label">Employee</span>
           </router-link>
         </li>
+        <li v-if="auth">
+          <router-link to="/user">
+            <i class="fa fa-users"></i>&nbsp;
+            <span class="side_menu_label">User</span>
+          </router-link>
+        </li>
       </ul>
     </nav>
 </template>

@@ -85,7 +85,7 @@ export default function mockData(query) {
         }
     }
 
-    const consoleGroupName = 'User data - ' + moment().format('YYYY-MM-DD HH:mm:ss')
+    const consoleGroupName = 'Employee data - ' + moment().format('YYYY-MM-DD HH:mm:ss')
     setTimeout(() => {
         console.group(consoleGroupName)
         console.info('Receive:', query)
