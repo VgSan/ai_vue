@@ -1,6 +1,6 @@
 <template>
   <header id="header">
-    <div class="logo">
+    <div v-if="auth" class="logo">
       <router-link to="/">
         <img style="top-padding: 5px;" src="../../assets/aisys/img/aisys_logo.png">
       </router-link>

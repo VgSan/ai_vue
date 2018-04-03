@@ -2,22 +2,25 @@
   <div id="signin">
     <div class="signin-form">
       <form @submit.prevent="onSubmit">
+        <div style="margin-top: 10px; margin-bottom: 20px; text-align: center;">
+          <img style="top-padding: 5px;" src="../../assets/aisys/img/aisys_logo.png">
+        </div>
         <div class="input">
-          <label for="email">Mail</label>
-          <input
+          <!-- <label for="email">Mail</label> -->
+          <input placeholder="mail"
                   type="email"
                   id="email"
                   v-model="email">
         </div>
         <div class="input">
-          <label for="password">Password</label>
-          <input
+          <!-- <label for="password">Password</label> -->
+          <input placeholder="password"
                   type="password"
                   id="password"
                   v-model="password">
         </div>
         <div>
-          <button class="btn" type="submit">Submit</button>
+          <button style="width: -webkit-fill-available;" class="btn" type="submit">LOGIN</button>
         </div>
       </form>
     </div>
@@ -51,7 +54,7 @@ export default {
 <style scoped>
 .signin-form {
   width: 400px;
-  margin: 30px auto;
+  margin: 100px auto;
   border: 1px solid #eee;
   padding: 20px;
   box-shadow: 0 2px 3px #ccc;

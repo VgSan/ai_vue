@@ -97,9 +97,15 @@ export default {
   },
   data: () => ({
     columns: [
-      { title: "User ID", field: "id", sortable: true },
-      { title: "Email", field: "email", sortable: true },
-      { title: "Password", field: "password", visible: true }
+      { title: "#", field: "id", sortable: true },
+      { title: "First Name", field: "firstName", sortable: true },
+      { title: "Last Name", field: "lastName", sortable: true, visible: true },
+      { title: "DOB", field: "dateOfBirth", sortable: true },
+      { title: "Mail", field: "mailAddress", sortable: true },
+      { title: "Phone No", field: "phoneNo", sortable: true, visible: false },
+      { title: "Mobile No", field: "mobileNo", sortable: true, visible: false },
+      { title: "Address", field: "address", sortable: true, visible: false },
+      { title: "Is Active", field: "isActive", sortable: true, visible: false },
     ],
     data: [],
     total: 0,

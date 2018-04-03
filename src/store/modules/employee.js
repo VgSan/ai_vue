@@ -16,13 +16,13 @@ const employee = {
             state.totalCount=rep.data.length;
         },
         async delete({state},payload){
-            await Util.ajax.delete('/api/Employee/Delete?Id='+payload.data.id);
+            await Util.ajax.delete('/api/Employee/DeleteEmployee?Id='+payload.data.id);
         },
         async create({state},payload){
-            await Util.ajax.post('/api/Employee/Create',payload.data);
+            await Util.ajax.post('/api/Employee/CreateEmployee',payload.data);
         },
         async update({state},payload){
-            await Util.ajax.put('/api/Employee/Update',payload.data);
+            await Util.ajax.put('/api/Employee/UpdateEmployee',payload.data);
         }
     }
 };
