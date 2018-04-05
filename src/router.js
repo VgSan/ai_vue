@@ -19,7 +19,7 @@ Vue.use(Datatable)
 const routes = [
   { path: '/signin', component: SigninPage },
   {
-    path: '/', component: DashboardPage,
+    path: '/', component: EmployeePage,
     beforeEnter(to, from, next) {
       store.dispatch('auth/tryAutoLogin')
       if (store.state.auth.idToken) {
@@ -104,6 +104,19 @@ const routes = [
   {
     path: '/employee/new',
     component: AddEmployeePage,
+    beforeEnter(to, from, next) {
+      store.dispatch('auth/tryAutoLogin')
+      if (store.state.auth.idToken) {
+        next()
+      } else {
+        next('/signin')
+      }
+    }
+  },
+  {
+    path: '/employee/edit/:editId',
+    component: AddEmployeePage,
+    props: true,
     beforeEnter(to, from, next) {
       store.dispatch('auth/tryAutoLogin')
       if (store.state.auth.idToken) {

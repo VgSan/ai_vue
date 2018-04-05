@@ -17,7 +17,7 @@ const user = {
             state.totalCount=rep.data.length;
         },
         async delete({state},payload){
-            await Util.ajax.delete('/api/User/Delete?Id='+payload.data.id);
+            await Util.ajax.delete('/api/User/DeleteUser?ids='+payload.data.join(','));
         },
         async create({state},payload){
             await Util.ajax.post('/api/User/Create',payload.data);

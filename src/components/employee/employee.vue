@@ -7,16 +7,21 @@
           Add Employee
         </button>
     </div>
-    <div>
+    <div style="margin-top:30px;">
       <!-- <code>query: {{ query }}</code> -->
       <div>
-        <datatable v-bind="$data" />
+        <datatable v-bind="$data">
+          <button class="btn btn-danger" @click="deleteEmployees" :disabled="!selection.length" title="Delete">
+            <i class="fa fa-trash"></i>
+          </button>
+        </datatable>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import router from "./../../router";
 import moment from "moment";
 import uniq from "lodash/uniq";
@@ -24,6 +29,8 @@ import orderBy from "lodash/orderBy";
 
 import without from "lodash/without";
 import camelCase from "lodash/camelCase";
+
+import components from "./comps/";
 
 const typeOf = o =>
   Object.prototype.toString
@@ -39,7 +46,7 @@ var employeeData = function employeeData(query, employees) {
   let rows = employees;
 
   // custom query conditions
-  ["id", "email", "password"].forEach(field => {
+  ["Id", "FirstName", "LastName"].forEach(field => {
     switch (typeOf(query[field])) {
       case "array":
         rows = rows.filter(row => query[field].includes(row[field]));
@@ -67,7 +74,7 @@ var employeeData = function employeeData(query, employees) {
       age:
         rows.length &&
         ~~(
-          rows.map(({ id }) => id).reduce((sum, cur) => sum + cur) / rows.length
+          rows.map(({ Id }) => Id).reduce((sum, cur) => sum + cur) / rows.length
         ), // average age
       country: uniq(rows.map(({ country }) => country)).length
     }
@@ -85,6 +92,7 @@ var employeeData = function employeeData(query, employees) {
 };
 
 export default {
+  components,
   methods: {
     addEmployee() {
       router.replace("/employee/new");
@@ -93,23 +101,36 @@ export default {
       await this.$store.dispatch({
         type: "employee/getAll"
       });
+    },
+    async deleteEmployees() {
+      console.log(this.selection.map(({ Id }) => Id));
+      await this.$store.dispatch({
+        type: "employee/delete",
+        data: this.selection.map(({ Id }) => Id)
+      });
+      this.getpage();
     }
   },
   data: () => ({
     columns: [
-      { title: "#", field: "id", sortable: true },
-      { title: "First Name", field: "firstName", sortable: true },
-      { title: "Last Name", field: "lastName", sortable: true, visible: true },
-      { title: "DOB", field: "dateOfBirth", sortable: true },
-      { title: "Mail", field: "mailAddress", sortable: true },
-      { title: "Phone No", field: "phoneNo", sortable: true, visible: false },
-      { title: "Mobile No", field: "mobileNo", sortable: true, visible: false },
-      { title: "Address", field: "address", sortable: true, visible: false },
-      { title: "Is Active", field: "isActive", sortable: true, visible: false },
+      { title: "#", field: "Id", sortable: true },
+      { title: "First Name", field: "FirstName", sortable: true },
+      { title: "Last Name", field: "LastName", sortable: true, visible: true },
+      { title: "DOB", field: "DateOfBirth", sortable: true },
+      { title: "Email", field: "Email", sortable: true, tdComp: "Email" },
+      { title: "Phone No", field: "PhoneNo", sortable: true, visible: false },
+      { title: "Mobile No", field: "MobileNo", sortable: true, visible: false },
+      { title: "Address", field: "Address", sortable: true, visible: false },
+      { title: "Is Active", field: "IsActive", sortable: true, visible: false },
+      { title: "", field: "Id", tdComp: "Opt", visible: "true" }
     ],
     data: [],
     total: 0,
-    query: {}
+    query: {},
+    selection: [],
+    xprops: {
+      eventbus: new Vue()
+    }
   }),
   watch: {
     query: {

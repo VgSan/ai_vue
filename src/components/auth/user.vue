@@ -2,15 +2,19 @@
   <div v-if="users" id="user" style="height: 800px; padding-left: 30px; width: 82vw;">
     <div>
         <h1>Users</h1>
-        <button style="position: absolute; right: 27px; top: 90px;" class="btn" @click="addUser">
+        <!-- <button style="position: absolute; right: 27px; top: 90px;" class="btn" @click="addUser">
           <i class="fa fa-plus"></i>&nbsp;
           Add User
-        </button>
+        </button> -->
     </div>
-    <div>
+    <div style="margin-top:30px;">
       <!-- <code>query: {{ query }}</code> -->
       <div>
-        <datatable v-bind="$data" />
+        <datatable v-bind="$data">
+          <button class="btn btn-danger" @click="deleteUsers" :disabled="!selection.length" title="Delete">
+            <i class="fa fa-trash"></i>
+          </button>
+        </datatable>
       </div>
     </div>
   </div>
@@ -38,7 +42,7 @@ var userData = function userData(query, users) {
   let rows = users;
 
   // custom query conditions
-  ["id", "email", "password"].forEach(field => {
+  ["Id", "Email", "Password"].forEach(field => {
     switch (typeOf(query[field])) {
       case "array":
         rows = rows.filter(row => query[field].includes(row[field]));
@@ -66,7 +70,7 @@ var userData = function userData(query, users) {
       age:
         rows.length &&
         ~~(
-          rows.map(({ id }) => id).reduce((sum, cur) => sum + cur) / rows.length
+          rows.map(({ Id }) => Id).reduce((sum, cur) => sum + cur) / rows.length
         ), // average age
       country: uniq(rows.map(({ country }) => country)).length
     }
@@ -92,17 +96,26 @@ export default {
       await this.$store.dispatch({
         type: "user/getAll"
       });
+    },
+    async deleteUsers() {
+      console.log(this.selection.map(({ Id }) => Id));
+      await this.$store.dispatch({
+        type: "user/delete",
+        data: this.selection.map(({ Id }) => Id)
+      });
+      this.getpage();
     }
   },
   data: () => ({
     columns: [
-      { title: "User ID", field: "id", sortable: true },
-      { title: "Email", field: "email", sortable: true },
-      { title: "Password", field: "password", visible: true }
+      { title: "User ID", field: "Id", sortable: true },
+      { title: "Email", field: "Email", sortable: true },
+      { title: "Password", field: "Password", visible: true }
     ],
     data: [],
     total: 0,
-    query: {}
+    query: {},
+    selection: []
   }),
   watch: {
     query: {

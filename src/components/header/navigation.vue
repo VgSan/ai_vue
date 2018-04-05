@@ -1,7 +1,7 @@
 <template>
     <nav class="side_menu">
       <ul>
-        <li v-if="auth">
+        <!-- <li v-if="auth">
           <router-link to="/dashboard">
             <i class="fa fa-tachometer"></i>&nbsp;
             <span class="side_menu_label">Dashboard</span>
@@ -18,7 +18,7 @@
             <i class="fa fa-book"></i>&nbsp;
             <span class="side_menu_label">Survey</span>
           </router-link>
-        </li>
+        </li> -->
         <li v-if="auth">
           <router-link to="/employee">
             <i class="fa fa-users"></i>&nbsp;

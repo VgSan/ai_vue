@@ -47,7 +47,7 @@ const auth = {
                         userId: res.data.userId
                     })
                     dispatch('setLogoutTimer', res.data.expires_in)
-                    router.replace('/dashboard')
+                    router.replace('/')
                 })
                 .catch(error => console.log(error))
         },
